@@ -1,0 +1,94 @@
+# Xcode
+build/
+DerivedData/
+*.xcuserstate
+*.xcscmblueprint
+*.xccheckout
+
+# User-specific Xcode files
+xcuserdata/
+*.xcworkspace/xcuserdata/
+
+# Swift Package Manager
+.build/
+.swiftpm/
+Package.resolved
+
+# CocoaPods (if used)
+Pods/
+
+# Carthage (if used)
+Carthage/Build/
+Carthage/Checkouts/
+
+# fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/test_output/
+
+# Code Injection
+iOSInjectionProject/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# App packaging
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# Playgrounds
+timeline.xctimeline
+playground.xcworkspace
+
+# Swift Playgrounds
+*.xcplayground
+
+# Code coverage
+*.gcno
+*.gcda
+*.profdata
+*.profraw
+
+# Instruments
+*.trace
+
+# Xcode build artifacts
+*.hmap
+*.ipa
+*.xcarchive
+
+# Environment and secrets
+.env
+.env.*
+*.pem
+*.p12
+*.p8
+*.mobileprovision
+
+# IDE
+.idea/
+*.swp
+*.swo
+*~
+
+# Tuist (if used)
+Tuist/Dependencies/
+Tuist/.build/
+
+# XcodeGen (if used)
+project.yml.user
+
+# Mint (if used)
+mint/
+
+# Accio (if used)
+Dependencies/
+
+# Testing
+*.coverage
+test_results/
