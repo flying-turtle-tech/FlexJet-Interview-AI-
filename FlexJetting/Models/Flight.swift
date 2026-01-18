@@ -23,14 +23,4 @@ struct Flight: Codable, Identifiable, Equatable {
         formatter.currencyCode = "USD"
         return formatter.string(from: NSNumber(value: priceInDollars)) ?? "$0.00"
     }
-
-    var duration: TimeInterval {
-        arrival.timeIntervalSince(departure)
-    }
-
-    var formattedDuration: String {
-        let hours = Int(duration) / 3600
-        let minutes = (Int(duration) % 3600) / 60
-        return "\(hours)h \(minutes)m"
-    }
 }

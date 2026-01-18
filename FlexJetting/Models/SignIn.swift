@@ -1,6 +1,11 @@
-import Foundation
+//
+//  SignIn.swift
+//  FlexJetting
+//
+//  Created by Jonathan on 1/18/26.
+//
 
-// MARK: - Sign In
+import Foundation
 
 struct SignInRequest: Encodable {
     let username: String
@@ -9,10 +14,4 @@ struct SignInRequest: Encodable {
 
 struct SignInResponse: Decodable {
     let token: String
-}
-
-// MARK: - API Error Response
-
-struct APIErrorResponse: Decodable {
-    let error: String
 }

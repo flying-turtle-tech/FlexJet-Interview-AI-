@@ -2,7 +2,6 @@ import Foundation
 
 enum NetworkError: Error, Equatable {
     case invalidURL
-    case noData
     case decodingFailed(String)
     case unauthorized
     case tokenExpired
@@ -23,8 +22,6 @@ enum NetworkError: Error, Equatable {
         switch self {
         case .invalidURL:
             return "Invalid request URL."
-        case .noData:
-            return "No data received from server."
         case .decodingFailed:
             return "Failed to process server response."
         case .unauthorized:
