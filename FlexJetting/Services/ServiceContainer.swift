@@ -17,5 +17,9 @@ final class ServiceContainer {
         DefaultFlightService(apiClient: apiClient)
     }()
 
+    private(set) lazy var appState: AppState = {
+        AppState(authenticationService: authenticationService)
+    }()
+
     private init() {}
 }
