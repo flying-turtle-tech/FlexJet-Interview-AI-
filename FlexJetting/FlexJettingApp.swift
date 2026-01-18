@@ -9,34 +9,36 @@ import SwiftUI
 
 @main
 struct FlexJettingApp: App {
-    @StateObject private var appState = ServiceContainer.shared.appState
+    @StateObject private var authState = ServiceContainer.shared.authState
+    @StateObject private var flightCompletionManager = ServiceContainer.shared.flightCompletionManager
 
     var body: some Scene {
         WindowGroup {
             RootView()
-                .environmentObject(appState)
+                .environmentObject(authState)
+                .environmentObject(flightCompletionManager)
         }
     }
 }
 
 struct RootView: View {
-    @EnvironmentObject private var appState: AppState
+    @EnvironmentObject private var authState: AuthState
 
     private let services = ServiceContainer.shared
 
     var body: some View {
         Group {
-            if appState.isAuthenticated {
+            if authState.isAuthenticated {
                 MainTabView(flightService: services.flightService)
             } else {
                 LoginView(
                     authenticationService: services.authenticationService,
                     onLoginSuccess: {
-                        appState.checkAuthenticationStatus()
+                        authState.checkAuthenticationStatus()
                     }
                 )
             }
         }
-        .animation(.easeInOut, value: appState.isAuthenticated)
+        .animation(.easeInOut, value: authState.isAuthenticated)
     }
 }

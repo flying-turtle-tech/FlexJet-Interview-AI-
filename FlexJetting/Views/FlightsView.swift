@@ -2,7 +2,7 @@ import SwiftUI
 
 struct FlightsView: View {
     @StateObject private var viewModel: FlightsViewModel
-    @EnvironmentObject private var appState: AppState
+    @EnvironmentObject private var flightCompletionManager: FlightCompletionManager
 
     init(flightService: FlightService) {
         _viewModel = StateObject(wrappedValue: FlightsViewModel(flightService: flightService))
@@ -87,7 +87,7 @@ struct FlightsView: View {
                     NavigationLink(value: flight) {
                         FlightCardView(
                             flight: flight,
-                            isCompleted: appState.isFlightCompleted(flight.id),
+                            isCompleted: flightCompletionManager.isCompleted(flight.id),
                             isToday: viewModel.isFlightToday(flight)
                         )
                     }

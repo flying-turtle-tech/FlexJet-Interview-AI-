@@ -1,8 +1,6 @@
 import SwiftUI
 
 struct MainTabView: View {
-    @EnvironmentObject private var appState: AppState
-
     private let flightService: FlightService
 
     init(flightService: FlightService) {

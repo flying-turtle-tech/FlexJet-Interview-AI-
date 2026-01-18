@@ -2,37 +2,20 @@ import Foundation
 import Combine
 
 @MainActor
-final class AppState: ObservableObject {
-    @Published var isAuthenticated: Bool = false
+final class FlightCompletionManager: ObservableObject {
     @Published private(set) var completedFlightIds: Set<String> = []
 
-    private let authenticationService: AuthenticationService
     private let completedFlightsKey = "completedFlightIds"
 
-    init(authenticationService: AuthenticationService) {
-        self.authenticationService = authenticationService
-        self.isAuthenticated = authenticationService.isAuthenticated
+    init() {
         loadCompletedFlights()
     }
 
-    func checkAuthenticationStatus() {
-        isAuthenticated = authenticationService.isAuthenticated
-    }
-
-    func signOut() {
-        do {
-            try authenticationService.signOut()
-            isAuthenticated = false
-        } catch {
-            // Handle error silently - user will remain logged in
-        }
-    }
-
-    func isFlightCompleted(_ flightId: String) -> Bool {
+    func isCompleted(_ flightId: String) -> Bool {
         completedFlightIds.contains(flightId)
     }
 
-    func toggleFlightCompletion(_ flightId: String) {
+    func toggle(_ flightId: String) {
         if completedFlightIds.contains(flightId) {
             completedFlightIds.remove(flightId)
         } else {

@@ -2,10 +2,10 @@ import SwiftUI
 
 struct FlightDetailView: View {
     let flight: Flight
-    @EnvironmentObject private var appState: AppState
+    @EnvironmentObject private var flightCompletionManager: FlightCompletionManager
 
     private var isCompleted: Bool {
-        appState.isFlightCompleted(flight.id)
+        flightCompletionManager.isCompleted(flight.id)
     }
 
     private var formattedDepartureDate: String {
@@ -80,7 +80,7 @@ struct FlightDetailView: View {
 
     private var completeButton: some View {
         Button {
-            appState.toggleFlightCompletion(flight.id)
+            flightCompletionManager.toggle(flight.id)
         } label: {
             HStack(spacing: 8) {
                 Image(systemName: isCompleted ? "checkmark.seal.fill" : "checkmark.seal")
