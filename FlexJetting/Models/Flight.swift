@@ -1,6 +1,6 @@
 import Foundation
 
-struct Flight: Codable, Identifiable, Equatable {
+struct Flight: Codable, Identifiable, Equatable, Hashable {
     let id: String
     let tripNumber: String
     let flightNumber: String?

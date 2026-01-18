@@ -5,16 +5,24 @@ final class ServiceContainer {
 
     private let baseURL = URL(string: "https://v0-simple-authentication-api.vercel.app/")!
 
-    private(set) lazy var apiClient: APIClient = {
+    private lazy var apiClient: APIClient = {
         URLSessionAPIClient(baseURL: baseURL)
     }()
 
-    private(set) lazy var authenticationService: AuthenticationService = {
+    private lazy var authenticationService: AuthenticationService = {
         DefaultAuthenticationService(apiClient: apiClient)
     }()
 
     private(set) lazy var flightService: FlightService = {
         DefaultFlightService(apiClient: apiClient)
+    }()
+
+    private(set) lazy var authState: AuthState = {
+        AuthState(authenticationService: authenticationService)
+    }()
+
+    private(set) lazy var flightCompletionManager: FlightCompletionManager = {
+        FlightCompletionManager()
     }()
 
     private init() {}

@@ -9,9 +9,31 @@ import SwiftUI
 
 @main
 struct FlexJettingApp: App {
+    @StateObject private var authState = ServiceContainer.shared.authState
+    @StateObject private var flightCompletionManager = ServiceContainer.shared.flightCompletionManager
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            RootView()
+                .environmentObject(authState)
+                .environmentObject(flightCompletionManager)
         }
+    }
+}
+
+struct RootView: View {
+    @EnvironmentObject private var authState: AuthState
+
+    private let services = ServiceContainer.shared
+
+    var body: some View {
+        Group {
+            if authState.isAuthenticated {
+                MainTabView(flightService: services.flightService)
+            } else {
+                LoginView(authState: authState)
+            }
+        }
+        .animation(.easeInOut, value: authState.isAuthenticated)
     }
 }
