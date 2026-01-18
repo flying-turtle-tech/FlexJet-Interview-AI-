@@ -8,20 +8,15 @@ final class LoginViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var errorMessage: String?
 
-    private let authenticationService: AuthenticationService
-    private let onLoginSuccess: () -> Void
+    private let authState: AuthState
 
     var isFormValid: Bool {
         !username.trimmingCharacters(in: .whitespaces).isEmpty &&
         !password.isEmpty
     }
 
-    init(
-        authenticationService: AuthenticationService,
-        onLoginSuccess: @escaping () -> Void
-    ) {
-        self.authenticationService = authenticationService
-        self.onLoginSuccess = onLoginSuccess
+    init(authState: AuthState) {
+        self.authState = authState
     }
 
     func signIn() async {
@@ -31,11 +26,10 @@ final class LoginViewModel: ObservableObject {
         errorMessage = nil
 
         do {
-            try await authenticationService.signIn(
+            try await authState.signIn(
                 username: username.trimmingCharacters(in: .whitespaces),
                 password: password
             )
-            onLoginSuccess()
         } catch let error as NetworkError {
             errorMessage = error.userFacingMessage
         } catch {

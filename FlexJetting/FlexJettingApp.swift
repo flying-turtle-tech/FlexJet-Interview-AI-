@@ -31,12 +31,7 @@ struct RootView: View {
             if authState.isAuthenticated {
                 MainTabView(flightService: services.flightService)
             } else {
-                LoginView(
-                    authenticationService: services.authenticationService,
-                    onLoginSuccess: {
-                        authState.checkAuthenticationStatus()
-                    }
-                )
+                LoginView(authState: authState)
             }
         }
         .animation(.easeInOut, value: authState.isAuthenticated)

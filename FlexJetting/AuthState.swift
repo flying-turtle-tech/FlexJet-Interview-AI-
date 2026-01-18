@@ -3,7 +3,7 @@ import Combine
 
 @MainActor
 final class AuthState: ObservableObject {
-    @Published var isAuthenticated: Bool = false
+    @Published private(set) var isAuthenticated: Bool = false
 
     private let authenticationService: AuthenticationService
 
@@ -12,8 +12,9 @@ final class AuthState: ObservableObject {
         self.isAuthenticated = authenticationService.isAuthenticated
     }
 
-    func checkAuthenticationStatus() {
-        isAuthenticated = authenticationService.isAuthenticated
+    func signIn(username: String, password: String) async throws {
+        try await authenticationService.signIn(username: username, password: password)
+        isAuthenticated = true
     }
 
     func signOut() {

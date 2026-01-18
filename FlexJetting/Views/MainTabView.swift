@@ -34,12 +34,20 @@ struct MainTabView: View {
 
 private struct PlaceholderView: View {
     let title: String
+    @EnvironmentObject private var authState: AuthState
 
     var body: some View {
         NavigationStack {
             Text("Coming Soon")
                 .foregroundColor(.secondary)
                 .navigationTitle(title)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button("Logout") {
+                            authState.signOut()
+                        }
+                    }
+                }
         }
     }
 }

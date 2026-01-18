@@ -4,14 +4,8 @@ import Combine
 struct LoginView: View {
     @StateObject private var viewModel: LoginViewModel
 
-    init(
-        authenticationService: AuthenticationService,
-        onLoginSuccess: @escaping () -> Void
-    ) {
-        _viewModel = StateObject(wrappedValue: LoginViewModel(
-            authenticationService: authenticationService,
-            onLoginSuccess: onLoginSuccess
-        ))
+    init(authState: AuthState) {
+        _viewModel = StateObject(wrappedValue: LoginViewModel(authState: authState))
     }
 
     var body: some View {
