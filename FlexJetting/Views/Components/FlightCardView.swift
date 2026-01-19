@@ -36,36 +36,52 @@ struct FlightCardView: View {
     }
 
     var body: some View {
-        HStack(spacing: 12) {
-            CalendarBadgeView(date: flight.departure)
+        VStack(alignment: .leading) {
+            HStack(spacing: 12) {
+                CalendarBadgeView(date: flight.departure)
 
-            VStack(alignment: .leading, spacing: 4) {
-                HStack(spacing: 4) {
-                    Text("\(originCity) to \(destinationCity)")
-                        .font(.headline)
-
-                    if isToday {
-                        Text("Today")
-                            .font(.caption2)
-                            .fontWeight(.semibold)
-                            .foregroundColor(.white)
-                            .padding(.horizontal, 6)
-                            .padding(.vertical, 2)
-                            .background(Color.blue)
-                            .clipShape(Capsule())
+                VStack(alignment: .leading, spacing: 4) {
+                    HStack(spacing: 4) {
+                        Text("\(originCity) to \(destinationCity)")
+                            .font(.headline)
+                            .foregroundStyle(Color.primaryText)
                     }
+
+                    Text("\(departureTime) - \(arrivalTime)")
+                        .font(.subheadline)
+                        .foregroundStyle(Color.secondaryText)
                 }
 
-                Text("\(departureTime) - \(arrivalTime)")
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
+                Spacer()
+
+                completionCheckmark
             }
-
-            Spacer()
-
-            completionCheckmark
+            if isToday {
+                HStack(spacing: 10) {
+                    Image(systemName: "calendar")
+                    Text("Flight Today")
+                }
+                    .font(.caption2)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.white)
+                    .padding(.vertical, 4)
+                    .padding(.horizontal, 16)
+                    .background(Color.accent)
+                    .clipShape(RoundedRectangle(cornerRadius: 34))
+            }
         }
-        .padding(.vertical, 8)
+        .padding()
+        .overlay {
+            RoundedRectangle(cornerRadius: 16)
+                .strokeBorder(Color.tertiary, lineWidth: isToday ? 0 : 1)
+        }
+        .background(
+            isToday ?
+            RoundedRectangle(cornerRadius: 16)
+            .fill(Color.white)
+            .shadow(color: Color.black.opacity(0.09), radius: 5.3, x: 0, y: 2)
+            : nil
+            )
     }
 
     @ViewBuilder
@@ -80,4 +96,24 @@ struct FlightCardView: View {
                 .foregroundColor(.primary)
         }
     }
+}
+
+#Preview(traits: .sizeThatFitsLayout) {
+    FlightCardView(
+        flight: Flight(
+            id: "1234",
+            tripNumber: "1000015",
+            flightNumber: "FLEX25",
+            tailNumber: "UA23",
+            origin: "Logan International (BOS)",
+            originIata: "BOS",
+            destination: "New York (JFK)",
+            destinationIata: "JFK",
+            departure: Date.now.advanced(by: 100),
+            arrival: Date.now.advanced(by: 500),
+            price: 13000
+        ),
+        isCompleted: false,
+        isToday: true,
+    )
 }

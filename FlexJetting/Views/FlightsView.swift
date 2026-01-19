@@ -82,18 +82,21 @@ struct FlightsView: View {
             }
             Spacer()
         } else {
-            List {
-                ForEach(viewModel.filteredFlights) { flight in
-                    NavigationLink(value: flight) {
-                        FlightCardView(
-                            flight: flight,
-                            isCompleted: flightCompletionManager.isCompleted(flight.id),
-                            isToday: viewModel.isFlightToday(flight)
-                        )
+            ScrollView {
+                LazyVStack {
+                    ForEach(viewModel.filteredFlights) { flight in
+                        NavigationLink(value: flight) {
+                            FlightCardView(
+                                flight: flight,
+                                isCompleted: flightCompletionManager.isCompleted(flight.id),
+                                isToday: viewModel.isFlightToday(flight),
+                            )
+                            .padding(.horizontal, 17)
+                            .padding(.vertical, 7.5)
+                        }
                     }
                 }
             }
-            .listStyle(.plain)
             .navigationDestination(for: Flight.self) { flight in
                 FlightDetailView(flight: flight)
             }
