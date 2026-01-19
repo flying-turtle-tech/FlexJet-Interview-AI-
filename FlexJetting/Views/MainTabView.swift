@@ -17,6 +17,7 @@ struct MainTabView: View {
             PlaceholderView(title: "Favorites")
                 .tabItem {
                     Label("Favorites", systemImage: "heart")
+                        .environment(\.symbolVariants, .none)
                 }
 
             PlaceholderView(title: "Contracts")

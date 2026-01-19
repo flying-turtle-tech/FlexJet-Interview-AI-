@@ -25,8 +25,6 @@ struct FlightDetailView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 24) {
-                routeHeader
-
                 airportCards
 
                 detailRows
@@ -39,15 +37,6 @@ struct FlightDetailView: View {
         }
         .navigationTitle("\(flight.originIata) to \(flight.destinationIata)")
         .navigationBarTitleDisplayMode(.large)
-    }
-
-    private var routeHeader: some View {
-        Text("\(flight.originIata) to \(flight.destinationIata)")
-            .font(.largeTitle)
-            .fontWeight(.bold)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.top, 8)
-            .accessibilityAddTraits(.isHeader)
     }
 
     private var airportCards: some View {
@@ -92,8 +81,8 @@ struct FlightDetailView: View {
             .foregroundColor(isCompleted ? .white : .primary)
             .background(
                 isCompleted
-                    ? Color(red: 0.573, green: 0.149, blue: 0.173)
-                    : Color.clear
+                ? Color.accentColor
+                : Color.clear
             )
             .overlay(
                 RoundedRectangle(cornerRadius: 10)
@@ -104,6 +93,7 @@ struct FlightDetailView: View {
             )
             .clipShape(RoundedRectangle(cornerRadius: 10))
         }
+        .disabled(flight.departure < Date.now)
         .buttonStyle(.plain)
     }
 }
@@ -116,17 +106,17 @@ private struct AirportCard: View {
         VStack(alignment: .leading, spacing: 4) {
             Text(airport)
                 .font(.headline)
-                .lineLimit(2)
-                .minimumScaleFactor(0.8)
 
             Text(label)
                 .font(.subheadline)
-                .foregroundColor(.secondary)
+                .foregroundColor(.secondaryText)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding()
-        .background(Color(.systemGray6))
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .overlay {
+            RoundedRectangle(cornerRadius: 16)
+                .strokeBorder(Color.tertiary, lineWidth: 1)
+        }
     }
 }
 
@@ -137,11 +127,12 @@ private struct DetailRow: View {
     var body: some View {
         HStack {
             Text(label)
-                .foregroundColor(.secondary)
-
+                .foregroundStyle(.secondaryText)
+                .fontWeight(.medium)
             Spacer()
 
             Text(value)
+                .foregroundStyle(.primaryText)
                 .fontWeight(.medium)
         }
     }
