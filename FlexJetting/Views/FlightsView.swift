@@ -3,13 +3,33 @@ import SwiftUI
 struct FlightsView: View {
     @StateObject private var viewModel: FlightsViewModel
     @EnvironmentObject private var flightCompletionManager: FlightCompletionManager
+    @State private var addFlight: Bool = false
 
     init(flightService: FlightService) {
         _viewModel = StateObject(wrappedValue: FlightsViewModel(flightService: flightService))
     }
+    
+    private var titleView: some View {
+        HStack {
+            Text("Flights").font(.custom(.semiBold, relativeTo: .title2))
+            Spacer()
+            Button("", systemImage: "plus.square.fill") {
+                addFlight = true
+            }.font(.system(size: 24))
+            .alert("Not Supported", isPresented: $addFlight) {
+                Button("OK", role: .cancel) {
+                    addFlight = false
+                }
+            } message: {
+                Text("This action is not yet supported. Please try again later.")
+            }
+        }
+        .padding(.horizontal, 30)
+    }
 
     var body: some View {
         NavigationStack {
+            titleView
             VStack(spacing: 0) {
                 Picker("Filter", selection: $viewModel.selectedFilter) {
                     ForEach(FlightFilter.allCases, id: \.self) { filter in
@@ -21,17 +41,6 @@ struct FlightsView: View {
                 .padding(.vertical, 8)
 
                 content
-            }
-            .navigationTitle("Flights")
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        // Add flight action - placeholder
-                    } label: {
-                        Image(systemName: "plus.square.fill")
-                            .font(.title3)
-                    }
-                }
             }
             .task {
                 await viewModel.fetchFlights()

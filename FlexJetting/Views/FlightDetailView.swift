@@ -9,11 +9,7 @@ struct FlightDetailView: View {
     }
 
     private var formattedDepartureDate: String {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        formatter.timeStyle = .short
-        formatter.timeZone = .current
-        return formatter.string(from: flight.departure)
+        flight.departure.formatted(.dateTime.month(.abbreviated).day())
     }
 
     private var relativeTime: String {
@@ -93,7 +89,7 @@ struct FlightDetailView: View {
             )
             .clipShape(RoundedRectangle(cornerRadius: 10))
         }
-        .disabled(flight.departure < Date.now)
+        .disabled(flight.departure > Date.now)
         .buttonStyle(.plain)
     }
 }

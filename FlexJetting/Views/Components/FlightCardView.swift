@@ -36,16 +36,14 @@ struct FlightCardView: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading) {
-            HStack(spacing: 12) {
+        VStack(alignment: .leading, spacing: 16) {
+            HStack(spacing: 16) {
                 CalendarBadgeView(date: flight.departure)
 
                 VStack(alignment: .leading, spacing: 4) {
-                    HStack(spacing: 4) {
-                        Text("\(originCity) to \(destinationCity)")
-                            .font(.headline)
-                            .foregroundStyle(Color.primaryText)
-                    }
+                    Text("\(originCity) to \(destinationCity)")
+                        .font(.headline)
+                        .foregroundStyle(Color.primaryText)
 
                     Text("\(departureTime) - \(arrivalTime)")
                         .font(.subheadline)
@@ -61,16 +59,15 @@ struct FlightCardView: View {
                     Image(systemName: "calendar")
                     Text("Flight Today")
                 }
-                    .font(.caption2)
-                    .fontWeight(.semibold)
-                    .foregroundColor(.white)
-                    .padding(.vertical, 4)
-                    .padding(.horizontal, 16)
-                    .background(Color.accent)
-                    .clipShape(RoundedRectangle(cornerRadius: 34))
+                .font(.custom(.extraBold, relativeTo: .footnote))
+                .foregroundStyle(.white)
+                .padding(.vertical, 6)
+                .padding(.horizontal, 16)
+                .background(Color.accent)
+                .clipShape(RoundedRectangle(cornerRadius: 34))
             }
         }
-        .padding()
+        .padding(15)
         .overlay {
             RoundedRectangle(cornerRadius: 16)
                 .strokeBorder(Color.tertiary, lineWidth: isToday ? 0 : 1)
@@ -88,12 +85,12 @@ struct FlightCardView: View {
     private var completionCheckmark: some View {
         if isCompleted {
             Image(systemName: "checkmark.seal.fill")
-                .font(.title2)
-                .foregroundColor(Color(red: 0.573, green: 0.149, blue: 0.173))
+                .font(.system(size: 24))
+                .foregroundStyle(Color.accent)
         } else {
             Image(systemName: "checkmark.seal")
-                .font(.title2)
-                .foregroundColor(.primary)
+                .font(.system(size: 24))
+                .foregroundStyle(Color.black)
         }
     }
 }
@@ -105,7 +102,7 @@ struct FlightCardView: View {
             tripNumber: "1000015",
             flightNumber: "FLEX25",
             tailNumber: "UA23",
-            origin: "Logan International (BOS)",
+            origin: "Logan (BOS)",
             originIata: "BOS",
             destination: "New York (JFK)",
             destinationIata: "JFK",
