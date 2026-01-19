@@ -32,7 +32,7 @@ struct LoginView: View {
             if let errorMessage = viewModel.errorMessage {
                 Text(errorMessage)
                     .font(.callout)
-                    .foregroundColor(.red)
+                    .foregroundStyle(.red)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 32)
             }

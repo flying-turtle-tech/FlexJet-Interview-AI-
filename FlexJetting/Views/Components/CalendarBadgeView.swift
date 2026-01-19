@@ -23,14 +23,14 @@ struct CalendarBadgeView: View {
         VStack(spacing: 0) {
             Text(monthAbbreviation)
                 .frame(width: 48, height: 18)
-                .font(.custom(.extraBold, relativeTo: .caption))
+                .font(.custom(.semiBold, relativeTo: .caption))
                 .foregroundStyle(isPast ? Color.secondaryText : .accent)
                 .background(isPast ? Color.tertiary : .accent.opacity(0.18))
                 .clipShape(UnevenRoundedRectangle(topLeadingRadius: 4, topTrailingRadius: 4))
 
             Text(dayOfMonth)
                 .frame(width: 48, height: 30)
-                .font(.custom(.extraBold, relativeTo: .caption))
+                .font(.custom(.semiBold, relativeTo: .headline))
                 .background(Color.offWhite)
                 .foregroundStyle(Color.primaryText)
                 .clipShape(UnevenRoundedRectangle(bottomLeadingRadius: 4, bottomTrailingRadius: 4))

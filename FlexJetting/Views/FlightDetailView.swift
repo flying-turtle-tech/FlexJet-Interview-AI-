@@ -112,7 +112,7 @@ private struct AirportCard: View {
 
             Text(label)
                 .font(.custom(.regular, relativeTo: .footnote))
-                .foregroundColor(.secondaryText)
+                .foregroundStyle(.secondaryText)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding()

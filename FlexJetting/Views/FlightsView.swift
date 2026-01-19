@@ -62,11 +62,11 @@ struct FlightsView: View {
             VStack(spacing: 16) {
                 Image(systemName: "exclamationmark.triangle")
                     .font(.largeTitle)
-                    .foregroundColor(.secondary)
+                    .foregroundStyle(.secondary)
 
                 Text(errorMessage)
                     .font(.body)
-                    .foregroundColor(.secondary)
+                    .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal)
 
@@ -83,11 +83,11 @@ struct FlightsView: View {
             VStack(spacing: 8) {
                 Image(systemName: "airplane")
                     .font(.largeTitle)
-                    .foregroundColor(.secondary)
+                    .foregroundStyle(.secondary)
 
                 Text("No \(viewModel.selectedFilter.rawValue.lowercased()) flights")
                     .font(.body)
-                    .foregroundColor(.secondary)
+                    .foregroundStyle(.secondary)
             }
             Spacer()
         } else {

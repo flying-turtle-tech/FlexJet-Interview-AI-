@@ -40,7 +40,7 @@ private struct PlaceholderView: View {
     var body: some View {
         NavigationStack {
             Text("Coming Soon")
-                .foregroundColor(.secondary)
+                .foregroundStyle(.secondary)
                 .navigationTitle(title)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
