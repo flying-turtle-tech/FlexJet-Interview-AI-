@@ -42,11 +42,11 @@ struct FlightCardView: View {
 
                 VStack(alignment: .leading, spacing: 4) {
                     Text("\(originCity) to \(destinationCity)")
-                        .font(.headline)
+                        .font(.custom(.semiBold, relativeTo: .footnote))
                         .foregroundStyle(Color.primaryText)
 
                     Text("\(departureTime) - \(arrivalTime)")
-                        .font(.subheadline)
+                        .font(.custom(.regular, relativeTo: .footnote))
                         .foregroundStyle(Color.secondaryText)
                 }
 
