@@ -22,11 +22,7 @@ struct FlightDetailView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 24) {
                 airportCards
-
                 detailRows
-
-                Spacer(minLength: 24)
-
                 completeButton
             }
             .padding()
@@ -109,7 +105,7 @@ private struct AirportCard: View {
         VStack(alignment: .leading, spacing: 4) {
             Text(airport)
                 .font(.custom(.semiBold, relativeTo: .footnote))
-
+                .foregroundStyle(.primaryText)
             Text(label)
                 .font(.custom(.regular, relativeTo: .footnote))
                 .foregroundStyle(.secondaryText)

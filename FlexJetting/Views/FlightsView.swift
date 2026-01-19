@@ -30,6 +30,7 @@ struct FlightsView: View {
     var body: some View {
         NavigationStack {
             titleView
+            Spacer(minLength: 50)
             VStack(spacing: 0) {
                 Picker("Filter", selection: $viewModel.selectedFilter) {
                     ForEach(FlightFilter.allCases, id: \.self) { filter in
