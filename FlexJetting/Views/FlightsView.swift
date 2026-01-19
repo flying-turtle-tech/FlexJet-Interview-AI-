@@ -55,9 +55,21 @@ struct FlightsView: View {
     @ViewBuilder
     private var content: some View {
         if viewModel.isLoading && viewModel.flights.isEmpty {
-            Spacer()
-            ProgressView()
-            Spacer()
+            ScrollView {
+                LazyVStack {
+                    ForEach(0..<6, id: \.self) { _ in
+                        FlightCardView(
+                            flight: .placeholder,
+                            isCompleted: false,
+                            isToday: false
+                        )
+                        .padding(.horizontal, 17)
+                        .padding(.vertical, 7.5)
+                        .redacted(reason: .placeholder)
+                        .shimmering()
+                    }
+                }
+            }
         } else if let errorMessage = viewModel.errorMessage, viewModel.flights.isEmpty {
             Spacer()
             VStack(spacing: 16) {

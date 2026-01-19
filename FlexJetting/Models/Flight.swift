@@ -20,4 +20,18 @@ struct Flight: Codable, Identifiable, Equatable, Hashable {
     var formattedPrice: String {
         return "$\(priceInDollars)"
     }
+
+    static let placeholder = Flight(
+        id: "placeholder",
+        tripNumber: "0000",
+        flightNumber: "000",
+        tailNumber: "N0000",
+        origin: "Placeholder City",
+        originIata: "PLH",
+        destination: "Destination City",
+        destinationIata: "DST",
+        departure: Date(),
+        arrival: Date().addingTimeInterval(3600),
+        price: 0
+    )
 }
