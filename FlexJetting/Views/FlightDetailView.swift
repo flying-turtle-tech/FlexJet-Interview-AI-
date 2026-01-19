@@ -9,11 +9,7 @@ struct FlightDetailView: View {
     }
 
     private var formattedDepartureDate: String {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        formatter.timeStyle = .short
-        formatter.timeZone = .current
-        return formatter.string(from: flight.departure)
+        flight.departure.formatted(.dateTime.month(.abbreviated).day())
     }
 
     private var relativeTime: String {
@@ -25,14 +21,8 @@ struct FlightDetailView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 24) {
-                routeHeader
-
                 airportCards
-
                 detailRows
-
-                Spacer(minLength: 24)
-
                 completeButton
             }
             .padding()
@@ -41,17 +31,8 @@ struct FlightDetailView: View {
         .navigationBarTitleDisplayMode(.large)
     }
 
-    private var routeHeader: some View {
-        Text("\(flight.originIata) to \(flight.destinationIata)")
-            .font(.largeTitle)
-            .fontWeight(.bold)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.top, 8)
-            .accessibilityAddTraits(.isHeader)
-    }
-
     private var airportCards: some View {
-        HStack(spacing: 12) {
+        HStack(spacing: 16) {
             AirportCard(
                 airport: flight.origin,
                 label: "Origin"
@@ -82,28 +63,36 @@ struct FlightDetailView: View {
         Button {
             flightCompletionManager.toggle(flight.id)
         } label: {
-            HStack(spacing: 8) {
-                Image(systemName: isCompleted ? "checkmark.seal.fill" : "checkmark.seal")
-                Text(isCompleted ? "Completed" : "Complete")
-                    .fontWeight(.semibold)
+            if isCompleted {
+                HStack {
+                    Image(systemName: "checkmark.seal.fill")
+                    Text("Completed")
+                        .font(.custom(.semiBold, relativeTo: .footnote))
+                }
+                .frame(height: 44)
+                .frame(maxWidth: .infinity)
+                .padding(.horizontal, 16)
+                .background(Color.accent)
+                .foregroundStyle(Color.white)
+                .clipShape(RoundedRectangle(cornerRadius: 16))
+            } else {
+                HStack {
+                    Image(systemName: "checkmark.seal")
+                    Text("Complete")
+                        .font(.custom(.semiBold, relativeTo: .footnote))
+                }
+                .frame(height: 44)
+                .frame(maxWidth: .infinity)
+                .padding(.horizontal, 16)
+                .background(Color.white)
+                .foregroundStyle(Color.black)
+                .overlay {
+                    RoundedRectangle(cornerRadius: 16)
+                        .strokeBorder(Color.tertiary, lineWidth: 1)
+                }
             }
-            .frame(maxWidth: .infinity)
-            .frame(height: 50)
-            .foregroundColor(isCompleted ? .white : .primary)
-            .background(
-                isCompleted
-                    ? Color(red: 0.573, green: 0.149, blue: 0.173)
-                    : Color.clear
-            )
-            .overlay(
-                RoundedRectangle(cornerRadius: 10)
-                    .stroke(
-                        isCompleted ? Color.clear : Color.gray,
-                        lineWidth: 1
-                    )
-            )
-            .clipShape(RoundedRectangle(cornerRadius: 10))
         }
+        .disabled(flight.departure > Date.now)
         .buttonStyle(.plain)
     }
 }
@@ -115,18 +104,18 @@ private struct AirportCard: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             Text(airport)
-                .font(.headline)
-                .lineLimit(2)
-                .minimumScaleFactor(0.8)
-
+                .font(.custom(.semiBold, relativeTo: .footnote))
+                .foregroundStyle(.primaryText)
             Text(label)
-                .font(.subheadline)
-                .foregroundColor(.secondary)
+                .font(.custom(.regular, relativeTo: .footnote))
+                .foregroundStyle(.secondaryText)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding()
-        .background(Color(.systemGray6))
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .overlay {
+            RoundedRectangle(cornerRadius: 16)
+                .strokeBorder(Color.tertiary, lineWidth: 1)
+        }
     }
 }
 
@@ -137,12 +126,11 @@ private struct DetailRow: View {
     var body: some View {
         HStack {
             Text(label)
-                .foregroundColor(.secondary)
-
+                .foregroundStyle(.secondaryText)
             Spacer()
 
             Text(value)
-                .fontWeight(.medium)
-        }
+                .foregroundStyle(.primaryText)
+        }.font(.custom(.semiBold, relativeTo: .subheadline))
     }
 }

@@ -2,6 +2,10 @@ import SwiftUI
 
 struct CalendarBadgeView: View {
     let date: Date
+    
+    private var isPast: Bool {
+        Date.now > date
+    }
 
     private var monthAbbreviation: String {
         let formatter = DateFormatter()
@@ -16,16 +20,26 @@ struct CalendarBadgeView: View {
     }
 
     var body: some View {
-        VStack(spacing: 2) {
+        VStack(spacing: 0) {
             Text(monthAbbreviation)
-                .font(.caption)
-                .fontWeight(.medium)
-                .foregroundColor(.secondary)
+                .frame(width: 48, height: 18)
+                .font(.custom(.semiBold, relativeTo: .caption))
+                .foregroundStyle(isPast ? Color.secondaryText : .accent)
+                .background(isPast ? Color.tertiary : .accent.opacity(0.18))
+                .clipShape(UnevenRoundedRectangle(topLeadingRadius: 4, topTrailingRadius: 4))
 
             Text(dayOfMonth)
-                .font(.title2)
-                .fontWeight(.bold)
+                .frame(width: 48, height: 30)
+                .font(.custom(.semiBold, relativeTo: .headline))
+                .background(Color.offWhite)
+                .foregroundStyle(Color.primaryText)
+                .clipShape(UnevenRoundedRectangle(bottomLeadingRadius: 4, bottomTrailingRadius: 4))
+            
         }
         .frame(width: 48, height: 48)
     }
+}
+
+#Preview(traits: .sizeThatFitsLayout) {
+    CalendarBadgeView(date: Date())
 }

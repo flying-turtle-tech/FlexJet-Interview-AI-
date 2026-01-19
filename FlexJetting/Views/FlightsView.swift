@@ -3,13 +3,34 @@ import SwiftUI
 struct FlightsView: View {
     @StateObject private var viewModel: FlightsViewModel
     @EnvironmentObject private var flightCompletionManager: FlightCompletionManager
+    @State private var addFlight: Bool = false
 
     init(flightService: FlightService) {
         _viewModel = StateObject(wrappedValue: FlightsViewModel(flightService: flightService))
     }
+    
+    private var titleView: some View {
+        HStack {
+            Text("Flights").font(.custom(.semiBold, relativeTo: .title2))
+            Spacer()
+            Button("", systemImage: "plus.square.fill") {
+                addFlight = true
+            }.font(.system(size: 24))
+            .alert("Not Supported", isPresented: $addFlight) {
+                Button("OK", role: .cancel) {
+                    addFlight = false
+                }
+            } message: {
+                Text("This action is not yet supported. Please try again later.")
+            }
+        }
+        .padding(.horizontal, 30)
+    }
 
     var body: some View {
         NavigationStack {
+            titleView
+            Spacer(minLength: 50)
             VStack(spacing: 0) {
                 Picker("Filter", selection: $viewModel.selectedFilter) {
                     ForEach(FlightFilter.allCases, id: \.self) { filter in
@@ -21,17 +42,6 @@ struct FlightsView: View {
                 .padding(.vertical, 8)
 
                 content
-            }
-            .navigationTitle("Flights")
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        // Add flight action - placeholder
-                    } label: {
-                        Image(systemName: "plus.square.fill")
-                            .font(.title3)
-                    }
-                }
             }
             .task {
                 await viewModel.fetchFlights()
@@ -53,11 +63,11 @@ struct FlightsView: View {
             VStack(spacing: 16) {
                 Image(systemName: "exclamationmark.triangle")
                     .font(.largeTitle)
-                    .foregroundColor(.secondary)
+                    .foregroundStyle(.secondary)
 
                 Text(errorMessage)
                     .font(.body)
-                    .foregroundColor(.secondary)
+                    .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal)
 
@@ -74,26 +84,29 @@ struct FlightsView: View {
             VStack(spacing: 8) {
                 Image(systemName: "airplane")
                     .font(.largeTitle)
-                    .foregroundColor(.secondary)
+                    .foregroundStyle(.secondary)
 
                 Text("No \(viewModel.selectedFilter.rawValue.lowercased()) flights")
                     .font(.body)
-                    .foregroundColor(.secondary)
+                    .foregroundStyle(.secondary)
             }
             Spacer()
         } else {
-            List {
-                ForEach(viewModel.filteredFlights) { flight in
-                    NavigationLink(value: flight) {
-                        FlightCardView(
-                            flight: flight,
-                            isCompleted: flightCompletionManager.isCompleted(flight.id),
-                            isToday: viewModel.isFlightToday(flight)
-                        )
+            ScrollView {
+                LazyVStack {
+                    ForEach(viewModel.filteredFlights) { flight in
+                        NavigationLink(value: flight) {
+                            FlightCardView(
+                                flight: flight,
+                                isCompleted: flightCompletionManager.isCompleted(flight.id),
+                                isToday: viewModel.isFlightToday(flight),
+                            )
+                            .padding(.horizontal, 17)
+                            .padding(.vertical, 7.5)
+                        }
                     }
                 }
             }
-            .listStyle(.plain)
             .navigationDestination(for: Flight.self) { flight in
                 FlightDetailView(flight: flight)
             }
