@@ -13,14 +13,11 @@ struct Flight: Codable, Identifiable, Equatable, Hashable {
     let arrival: Date
     let price: Int
 
-    var priceInDollars: Double {
-        Double(price) / 100.0
+    var priceInDollars: Int {
+        price / 100
     }
 
     var formattedPrice: String {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .currency
-        formatter.currencyCode = "USD"
-        return formatter.string(from: NSNumber(value: priceInDollars)) ?? "$0.00"
+        return "$\(priceInDollars)"
     }
 }

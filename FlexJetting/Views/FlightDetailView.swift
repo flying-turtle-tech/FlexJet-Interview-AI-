@@ -36,7 +36,7 @@ struct FlightDetailView: View {
     }
 
     private var airportCards: some View {
-        HStack(spacing: 12) {
+        HStack(spacing: 16) {
             AirportCard(
                 airport: flight.origin,
                 label: "Origin"
@@ -67,27 +67,34 @@ struct FlightDetailView: View {
         Button {
             flightCompletionManager.toggle(flight.id)
         } label: {
-            HStack(spacing: 8) {
-                Image(systemName: isCompleted ? "checkmark.seal.fill" : "checkmark.seal")
-                Text(isCompleted ? "Completed" : "Complete")
-                    .fontWeight(.semibold)
+            if isCompleted {
+                HStack {
+                    Image(systemName: "checkmark.seal.fill")
+                    Text("Completed")
+                        .font(.custom(.semiBold, relativeTo: .footnote))
+                }
+                .frame(height: 44)
+                .frame(maxWidth: .infinity)
+                .padding(.horizontal, 16)
+                .background(Color.accent)
+                .foregroundStyle(Color.white)
+                .clipShape(RoundedRectangle(cornerRadius: 16))
+            } else {
+                HStack {
+                    Image(systemName: "checkmark.seal")
+                    Text("Complete")
+                        .font(.custom(.semiBold, relativeTo: .footnote))
+                }
+                .frame(height: 44)
+                .frame(maxWidth: .infinity)
+                .padding(.horizontal, 16)
+                .background(Color.white)
+                .foregroundStyle(Color.black)
+                .overlay {
+                    RoundedRectangle(cornerRadius: 16)
+                        .strokeBorder(Color.tertiary, lineWidth: 1)
+                }
             }
-            .frame(maxWidth: .infinity)
-            .frame(height: 50)
-            .foregroundColor(isCompleted ? .white : .primary)
-            .background(
-                isCompleted
-                ? Color.accentColor
-                : Color.clear
-            )
-            .overlay(
-                RoundedRectangle(cornerRadius: 10)
-                    .stroke(
-                        isCompleted ? Color.clear : Color.gray,
-                        lineWidth: 1
-                    )
-            )
-            .clipShape(RoundedRectangle(cornerRadius: 10))
         }
         .disabled(flight.departure > Date.now)
         .buttonStyle(.plain)
@@ -101,10 +108,10 @@ private struct AirportCard: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             Text(airport)
-                .font(.headline)
+                .font(.custom(.semiBold, relativeTo: .footnote))
 
             Text(label)
-                .font(.subheadline)
+                .font(.custom(.regular, relativeTo: .footnote))
                 .foregroundColor(.secondaryText)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -124,12 +131,10 @@ private struct DetailRow: View {
         HStack {
             Text(label)
                 .foregroundStyle(.secondaryText)
-                .fontWeight(.medium)
             Spacer()
 
             Text(value)
                 .foregroundStyle(.primaryText)
-                .fontWeight(.medium)
-        }
+        }.font(.custom(.semiBold, relativeTo: .subheadline))
     }
 }
