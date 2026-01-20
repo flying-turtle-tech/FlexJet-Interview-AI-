@@ -1,51 +1,27 @@
 import SwiftUI
 
 struct FlightCardView: View {
+    let viewModel: FlightCardViewModel
     let flight: Flight
     let isCompleted: Bool
-    let isToday: Bool
-
-    private static let timeFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "h:mm a"
-        formatter.timeZone = .current
-        return formatter
-    }()
-
-    private var departureTime: String {
-        Self.timeFormatter.string(from: flight.departure)
+    
+    init(flight: Flight, isCompleted: Bool) {
+        self.flight = flight
+        self.isCompleted = isCompleted
+        self.viewModel = FlightCardViewModel(flight: flight)
     }
-
-    private var arrivalTime: String {
-        Self.timeFormatter.string(from: flight.arrival)
-    }
-
-    private var originCity: String {
-        extractCity(from: flight.origin)
-    }
-
-    private var destinationCity: String {
-        extractCity(from: flight.destination)
-    }
-
-    private func extractCity(from location: String) -> String {
-        if let parenIndex = location.firstIndex(of: "(") {
-            return String(location[..<parenIndex]).trimmingCharacters(in: .whitespaces)
-        }
-        return location
-    }
-
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             HStack(spacing: 16) {
                 CalendarBadgeView(date: flight.departure)
 
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("\(originCity) to \(destinationCity)")
+                    Text(viewModel.title)
                         .font(.custom(.semiBold, relativeTo: .footnote))
                         .foregroundStyle(Color.primaryText)
 
-                    Text("\(departureTime) - \(arrivalTime)")
+                    Text(viewModel.subtitle)
                         .font(.custom(.regular, relativeTo: .footnote))
                         .foregroundStyle(Color.secondaryText)
                 }
@@ -54,7 +30,7 @@ struct FlightCardView: View {
 
                 completionCheckmark
             }
-            if isToday {
+            if viewModel.isToday {
                 HStack(spacing: 10) {
                     Image(systemName: "calendar")
                     Text("Flight Today")
@@ -70,10 +46,10 @@ struct FlightCardView: View {
         .padding(15)
         .overlay {
             RoundedRectangle(cornerRadius: 16)
-                .strokeBorder(Color.tertiary, lineWidth: isToday ? 0 : 1)
+                .strokeBorder(Color.tertiary, lineWidth: viewModel.isToday ? 0 : 1)
         }
         .background(
-            isToday ?
+            viewModel.isToday ?
             RoundedRectangle(cornerRadius: 16)
             .fill(Color.white)
             .shadow(color: Color.black.opacity(0.09), radius: 5.3, x: 0, y: 2)
@@ -111,6 +87,5 @@ struct FlightCardView: View {
             price: 13000
         ),
         isCompleted: false,
-        isToday: true,
     )
 }
