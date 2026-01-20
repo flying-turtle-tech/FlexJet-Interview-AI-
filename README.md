@@ -4,6 +4,8 @@
 
 Original Implementation (no AI code-gen): https://github.com/flying-turtle-tech/FlexJet-Interview
 
+Loom video link: https://www.loom.com/share/631433d380754e528d6d493ce4602c9f
+
 ### Time Breakdown
 
 - Login screen: 0.5 hours
