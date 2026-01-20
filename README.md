@@ -98,3 +98,19 @@ Flight Details page: From top to Bottom \
   -Uncompleted state: Checkmark.seal "Complete". White with grey 1pt border \
   -Completed state: Checkmark.seal.fill (white) "Completed". #92262c. \
   -WARNING - GOTCHYA ALERT - When setting the completed state, the Checkmark on the Flight Card should update. In the completed state it should be filled in the #92262c color. When not completed it should be the non filled checkmark.seal with a black border.
+
+
+### Future Enhancements
+- [ ] Implement caching properly for requests. Possibly add a networking library that automatically handles caching.
+- [ ] Perfecting token expiration on flights page. Point user to login again.
+- [ ] Use static String variables for any strings that are displayed in the app
+- [ ] Replace magic numbers with descriptive variables.
+- [ ] Fix any broken Preview Views.
+- [ ] Add an app icon
+- [ ] Add Swift Linter/Formatter so that code is all formatted the same throughout
+- [ ] Add a pipeline to automatically test code on PR's
+
+### Future updates that require backend updates
+- [ ] Automatic background token refresh.
+- [ ] Make the Plus button on flights page add a flight.
+- [ ] Create pages for other tabs. (Favorites, Contracts, Profile)
