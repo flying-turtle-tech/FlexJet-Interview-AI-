@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		ABD937962F1FE41F00E71EF0 /* SwiftSecurity in Frameworks */ = {isa = PBXBuildFile; productRef = ABD937952F1FE41F00E71EF0 /* SwiftSecurity */; };
+		ABD937982F1FE5D900E71EF0 /* TestPlan.xctestplan in Resources */ = {isa = PBXBuildFile; fileRef = ABD937972F1FE5D900E71EF0 /* TestPlan.xctestplan */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		ABD37E0E2F1D2E6F00CEBD6D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,6 +32,7 @@
 		ABD37E002F1D2E6E00CEBD6D /* FlexJetting.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlexJetting.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABD37E0D2F1D2E6F00CEBD6D /* FlexJettingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlexJettingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABD37E172F1D2E6F00CEBD6D /* FlexJettingUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlexJettingUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		ABD937972F1FE5D900E71EF0 /* TestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = TestPlan.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -36,20 +42,6 @@
 				Info.plist,
 			);
 			target = ABD37DFF2F1D2E6E00CEBD6D /* FlexJetting */;
-		};
-		ABD937222F1FDCB100E71EF0 /* Exceptions for "FlexJettingTests" folder in "FlexJetting" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				TestPlan.xctestplan,
-			);
-			target = ABD37DFF2F1D2E6E00CEBD6D /* FlexJetting */;
-		};
-		ABD937232F1FDCB100E71EF0 /* Exceptions for "FlexJettingTests" folder in "FlexJettingTests" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				TestPlan.xctestplan,
-			);
-			target = ABD37E0C2F1D2E6F00CEBD6D /* FlexJettingTests */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
@@ -64,10 +56,6 @@
 		};
 		ABD37E102F1D2E6F00CEBD6D /* FlexJettingTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				ABD937222F1FDCB100E71EF0 /* Exceptions for "FlexJettingTests" folder in "FlexJetting" target */,
-				ABD937232F1FDCB100E71EF0 /* Exceptions for "FlexJettingTests" folder in "FlexJettingTests" target */,
-			);
 			path = FlexJettingTests;
 			sourceTree = "<group>";
 		};
@@ -83,6 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ABD937962F1FE41F00E71EF0 /* SwiftSecurity in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -106,6 +95,7 @@
 		ABD37DF72F1D2E6E00CEBD6D = {
 			isa = PBXGroup;
 			children = (
+				ABD937972F1FE5D900E71EF0 /* TestPlan.xctestplan */,
 				ABD37E022F1D2E6E00CEBD6D /* FlexJetting */,
 				ABD37E102F1D2E6F00CEBD6D /* FlexJettingTests */,
 				ABD37E1A2F1D2E6F00CEBD6D /* FlexJettingUITests */,
@@ -143,6 +133,7 @@
 			);
 			name = FlexJetting;
 			packageProductDependencies = (
+				ABD937952F1FE41F00E71EF0 /* SwiftSecurity */,
 			);
 			productName = FlexJetting;
 			productReference = ABD37E002F1D2E6E00CEBD6D /* FlexJetting.app */;
@@ -226,6 +217,9 @@
 			);
 			mainGroup = ABD37DF72F1D2E6E00CEBD6D;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				ABD937942F1FE41F00E71EF0 /* XCRemoteSwiftPackageReference "swift-security" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = ABD37E012F1D2E6E00CEBD6D /* Products */;
 			projectDirPath = "";
@@ -243,6 +237,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ABD937982F1FE5D900E71EF0 /* TestPlan.xctestplan in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -611,6 +606,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		ABD937942F1FE41F00E71EF0 /* XCRemoteSwiftPackageReference "swift-security" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dm-zharov/swift-security.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.5.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		ABD937952F1FE41F00E71EF0 /* SwiftSecurity */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = ABD937942F1FE41F00E71EF0 /* XCRemoteSwiftPackageReference "swift-security" */;
+			productName = SwiftSecurity;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = ABD37DF82F1D2E6E00CEBD6D /* Project object */;
 }
