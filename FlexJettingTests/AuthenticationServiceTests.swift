@@ -54,7 +54,6 @@ final class AuthenticationServiceTests: XCTestCase {
         mockAPIClient.responseToReturn = SignInResponse(token: "new-token")
 
         try await sut.signIn(username: "testuser", password: "password123")
-// i feel like this should use protocol functions where possible
         XCTAssertEqual(mockTokenStorage.storedToken, "new-token")
     }
 

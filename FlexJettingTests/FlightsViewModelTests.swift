@@ -41,12 +41,23 @@ final class FlightsViewModelTests: XCTestCase {
         XCTAssertNil(sut.errorMessage)
     }
 
-    // TODO: - this doesnt really do anything
-    func testFetchFlightsSetsLoadingState() async {
+    func testFetchFlightsSetsLoadingStateDuringFetch() async {
         mockFlightService.flightsToReturn = []
+        mockFlightService.delay = .milliseconds(100)
 
-        await sut.fetchFlights()
+        // Start the fetch but don't await it yet
+        let fetchTask = Task { await sut.fetchFlights() }
 
+        // Give it a moment to start
+        try? await Task.sleep(for: .milliseconds(10))
+
+        // Now isLoading should be true (fetch is in progress)
+        XCTAssertTrue(sut.isLoading)
+
+        // Wait for completion
+        await fetchTask.value
+
+        // Now isLoading should be false
         XCTAssertFalse(sut.isLoading)
     }
 
