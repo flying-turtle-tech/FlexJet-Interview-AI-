@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "6379FE6F-22E8-42F7-A5F7-EDF1BB946B69",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:FlexJetting.xcodeproj",
+        "identifier" : "ABD37E0C2F1D2E6F00CEBD6D",
+        "name" : "FlexJettingTests"
+      }
+    }
+  ],
+  "version" : 1
+}
