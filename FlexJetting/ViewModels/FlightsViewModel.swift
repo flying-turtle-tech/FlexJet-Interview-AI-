@@ -46,8 +46,4 @@ final class FlightsViewModel: ObservableObject {
 
         isLoading = false
     }
-
-    func isFlightToday(_ flight: Flight) -> Bool {
-        Calendar.current.isDateInToday(flight.departure) && flight.departure >= Date()
-    }
 }

@@ -13,14 +13,6 @@ struct Flight: Codable, Identifiable, Equatable, Hashable {
     let arrival: Date
     let price: Int
 
-    var priceInDollars: Int {
-        price / 100
-    }
-
-    var formattedPrice: String {
-        return "$\(priceInDollars)"
-    }
-
     static let placeholder = Flight(
         id: "placeholder",
         tripNumber: "0000",
@@ -34,4 +26,32 @@ struct Flight: Codable, Identifiable, Equatable, Hashable {
         arrival: Date().addingTimeInterval(3600),
         price: 0
     )
+}
+extension Flight {
+    var priceInDollars: Int {
+        price / 100
+    }
+
+    var formattedPrice: String {
+        return "$\(priceInDollars)"
+    }
+
+    var isToday: Bool {
+        Calendar.current.isDateInToday(departure) && departure >= Date()
+    }
+    
+    func extractCity(from location: String) -> String {
+        if let parenIndex = location.firstIndex(of: "(") {
+            return String(location[..<parenIndex]).trimmingCharacters(in: .whitespaces)
+        }
+        return location
+    }
+    
+    var originCity: String {
+        extractCity(from: origin)
+    }
+
+    var destinationCity: String {
+        extractCity(from: destination)
+    }
 }

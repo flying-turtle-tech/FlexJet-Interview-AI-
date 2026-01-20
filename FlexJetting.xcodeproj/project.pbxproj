@@ -37,6 +37,20 @@
 			);
 			target = ABD37DFF2F1D2E6E00CEBD6D /* FlexJetting */;
 		};
+		ABD937222F1FDCB100E71EF0 /* Exceptions for "FlexJettingTests" folder in "FlexJetting" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				TestPlan.xctestplan,
+			);
+			target = ABD37DFF2F1D2E6E00CEBD6D /* FlexJetting */;
+		};
+		ABD937232F1FDCB100E71EF0 /* Exceptions for "FlexJettingTests" folder in "FlexJettingTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				TestPlan.xctestplan,
+			);
+			target = ABD37E0C2F1D2E6F00CEBD6D /* FlexJettingTests */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -50,6 +64,10 @@
 		};
 		ABD37E102F1D2E6F00CEBD6D /* FlexJettingTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				ABD937222F1FDCB100E71EF0 /* Exceptions for "FlexJettingTests" folder in "FlexJetting" target */,
+				ABD937232F1FDCB100E71EF0 /* Exceptions for "FlexJettingTests" folder in "FlexJettingTests" target */,
+			);
 			path = FlexJettingTests;
 			sourceTree = "<group>";
 		};

@@ -61,7 +61,6 @@ struct FlightsView: View {
                         FlightCardView(
                             flight: .placeholder,
                             isCompleted: false,
-                            isToday: false
                         )
                         .padding(.horizontal, 17)
                         .padding(.vertical, 7.5)
@@ -111,7 +110,6 @@ struct FlightsView: View {
                             FlightCardView(
                                 flight: flight,
                                 isCompleted: flightCompletionManager.isCompleted(flight.id),
-                                isToday: viewModel.isFlightToday(flight),
                             )
                             .padding(.horizontal, 17)
                             .padding(.vertical, 7.5)
